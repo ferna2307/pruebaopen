@@ -1,0 +1,82 @@
+## mako
+<%page expression_filter="h"/>
+<%!
+  from django.urls import reverse
+  from django.utils.translation import ugettext as _
+  from branding.api import get_footer
+  from openedx.core.djangoapps.lang_pref.api import footer_language_selector_is_enabled
+%>
+<% footer = get_footer(is_secure=is_secure) %>
+<%namespace name='static' file='static_content.html'/>
+
+  <div class="anet-footer">
+    <div class="anet-img-container">
+      <a href="/">
+        <img src="${static.url("images/aulaNetAzul.svg")}" style="height: 110px" />
+      </a>
+      <span>AulaNet - 2020</span>
+    </div>
+
+    <div class="anet-vertical-line"></div>
+
+    <div class="anet-directions">
+      <span>Direcciones</span>
+      <div class="anet-dir1">
+        Calacoto entre C.16 y 17, Garden (Zona Sur) <br />
+        La Paz, Bolivia
+      </div>
+      <div class="anet-dir2">
+        Avenida San Martín Calle H no.39 (Zona Equipetrol) <br />
+        Santa Cruz, Bolivia
+      </div>
+    </div>
+
+    <div class="anet-vertical-line"></div>
+
+    <div class="anet-contacts">
+      <span>Contactos</span>
+      <div class="anet-contact1">
+        Telefono: +591 75275552 <br />
+        La Paz, Bolivia
+      </div>
+      <div class="anet-contact2">
+        Telefono: +591 75828728 <br />
+        Santa Cruz, Bolivia
+      </div>
+    </div>
+
+    <div class="anet-vertical-line"></div>
+
+    <div class="anet-social">
+      <span>Redes Sociales</span>
+      <ul>
+        <li>
+          <a href="https://wa.me/message/OTJLVTAW4ZGBG1" target="_blank">
+            <i class="fa fa-whatsapp"></i>Whatsapp
+          </a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/aulanet.bo" target="_blank">
+            <i class="fa fa-facebook-square"></i>Facebook
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/aulanet.bo" target="_blank">
+            <i class="fa fa-instagram"></i>Instagram
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+% if include_dependencies:
+  <%static:js group='base_vendor'/>
+  <%static:css group='style-vendor'/>
+  <%include file="widgets/segment-io.html" />
+  <%include file="widgets/segment-io-footer.html" />
+% endif
+% if footer_css_urls:
+  % for url in footer_css_urls:
+    <link rel="stylesheet" type="text/css" href="${url}"></link>
+  % endfor
+% endif
